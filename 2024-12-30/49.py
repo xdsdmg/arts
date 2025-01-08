@@ -2,31 +2,20 @@
 https://leetcode.cn/problems/group-anagrams/?envType=study-plan-v2&envId=top-100-liked
 """
 
+import collections
 from typing import List, Dict
+from collections import Counter
 
 
 def str2map(str) -> Dict:
-    res = {}
-
-    for c in str:
-        res[c] = 1 if c not in res else res[c] + 1
-
-    return res
-
-
-def cmp_map(map_1, map_2) -> bool:
-    if len(map_1) != len(map_2):
-        return False
-
-    for k in map_1:
-        if (k not in map_2) or (map_1[k] != map_2[k]):
-            return False
-
-    return True
+    return dict(Counter([c for c in str]))
 
 
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        if len(strs) == 0:
+            return []
+
         records: List[Dict] = []
 
         for s in strs:
@@ -34,7 +23,7 @@ class Solution:
             m = str2map(s)
 
             for r in records:
-                if not cmp_map(m, r["map"]):
+                if m != r["map"]:
                     continue
 
                 r["arr"].append(s)
@@ -45,9 +34,21 @@ class Solution:
 
         return [r["arr"] for r in records]
 
+    def groupAnagrams_2(self, strs: List[str]) -> List[List[str]]:
+        if len(strs) == 0:
+            return []
+
+        mp = collections.defaultdict(list)
+
+        for str in strs:
+            key = "".join(sorted(str))
+            mp[key].append(str)
+
+        return list(mp.values())
+
 
 if __name__ == "__main__":
     strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
     s = Solution()
-    res = s.groupAnagrams(strs)
+    res = s.groupAnagrams_2(strs)
     print(res)
