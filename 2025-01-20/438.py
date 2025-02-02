@@ -1,12 +1,6 @@
-<<<<<<< HEAD
 """
 https://leetcode.cn/problems/find-all-anagrams-in-a-string/?envType=study-plan-v2&envId=top-100-liked
 """
-=======
-'''
-https://leetcode.cn/problems/find-all-anagrams-in-a-string/?envType=study-plan-v2&envId=top-100-liked
-'''
->>>>>>> fe5a600 (feat (wip): 2025-01-27)
 
 from typing import List
 
