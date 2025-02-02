@@ -37,5 +37,4 @@ if __name__ == "__main__":
     p = "abc"
 
     s_ = Solution()
-
     print(s_.findAnagrams(s, p))
