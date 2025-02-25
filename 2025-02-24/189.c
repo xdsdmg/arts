@@ -4,27 +4,34 @@
 
 #include <stdio.h>
 
-void rotate_by_one(int *nums, int numsSize) {
+void rotate(int *nums, int numsSize, int k) {
   if (numsSize <= 1)
     return;
 
-  for (int i = 0, tmp, last = nums[0]; i < numsSize; i++) {
-    int index = (i + 1) % numsSize;
-    tmp = nums[index];
-    nums[index] = last;
-    last = tmp;
+  k = k % numsSize;
+  if (k == 0)
+    return;
+
+  int n = numsSize % k == 0 ? k : 1;
+
+  for (int i = 0; i < n; i++) {
+    int last = nums[i];
+    int index = (i + k) % numsSize;
+    int c = index;
+
+    do {
+      last = last ^ nums[index];
+      nums[index] = last ^ nums[index];
+      last = last ^ nums[index];
+
+      index = (index + k) % numsSize;
+    } while (index != c);
   }
 }
 
-void rotate(int *nums, int numsSize, int k) {
-  k = k % numsSize;
-  for (int i = 0; i < k; i++)
-    rotate_by_one(nums, numsSize);
-}
-
 int main(int argc, char *argv[]) {
-  int nums[7] = {1, 2, 3, 4, 5, 6, 7};
-  int nums_size = 7, k = 10;
+  int nums[4] = {-1, -100, 3, 99};
+  int nums_size = 4, k = 2;
 
   rotate(nums, nums_size, k);
 
