@@ -4,6 +4,26 @@
 
 #include <stdio.h>
 
+int gcd(int a, int b) {
+  if (a < b) {
+    a = a ^ b;
+    b = a ^ b;
+    a = a ^ b;
+  }
+
+  while (1) {
+    int tmp = a % b;
+    if (tmp == 0)
+      break;
+    a = b;
+    b = tmp;
+  }
+
+  return b;
+}
+
+int lcd(int a, int b) { return (a * b) / gcd(a, b); }
+
 void rotate(int *nums, int numsSize, int k) {
   if (numsSize <= 1)
     return;
@@ -12,7 +32,7 @@ void rotate(int *nums, int numsSize, int k) {
   if (k == 0)
     return;
 
-  int n = numsSize % k == 0 ? k : 1;
+  int n = numsSize / (lcd(k, numsSize) / k);
 
   for (int i = 0; i < n; i++) {
     int last = nums[i];
